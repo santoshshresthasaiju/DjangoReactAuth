@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Django
+*.log
+db.sqlite3
+migrations/
+staticfiles/
+media/
+
+# Virtual Environment
+venv/
+myven/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+.env
