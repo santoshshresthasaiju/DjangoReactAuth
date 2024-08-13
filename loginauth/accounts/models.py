@@ -12,13 +12,12 @@ from django.conf import settings
 class User(AbstractUser):
     username =None
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=12)
+    phone = models.CharField(max_length=15, null=True, blank=True)
     is_email_verified = models.BooleanField(default=False)
     is_phone_verified = models.BooleanField(default=False)
     otp = models.CharField(max_length=6, null=True, blank=True)
     email_verificcation_token = models.CharField(max_length=200, null=True, blank=True)
     forget_password_token = models.CharField(max_length=200, null=True, blank=True)
-    
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -29,16 +28,17 @@ class User(AbstractUser):
         return self.first_name + ' ' + self.last_name
     
     def __str__(self):
-        return  self.email
+        return self.email 
 
-@receiver(post_save, sender=User)
-def send_email_token(sender, instance, created, **kwargs):
-    if created:
-        try:
-            subject = "Your email needs to be verified"
-            message = f'Hi, click on the link to verify your email: http://127.0.0.1:8000/{uuid.uuid4()}/'
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [instance.email]
-            send_mail(subject, message, email_from, recipient_list)
-        except Exception as e:
-            print(e)
+# @receiver(post_save, sender=User)
+# def send_email_token(sender, instance, created, **kwargs):
+#     if created:
+#         try:
+#             subject = "Your email needs to be verified"
+#             message = f'Hi, click on the link to verify your email: http://127.0.0.1:8000/{uuid.uuid4()}/'
+            
+#             email_from = settings.EMAIL_HOST_USER
+#             recipient_list = [instance.email]
+#             send_mail(subject, message, email_from, recipient_list)
+#         except Exception as e:
+#             print(e)
